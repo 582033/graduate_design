@@ -1,4 +1,4 @@
-使用
+初始使用
 CodeIgniter 2.1.3
 Smarty 3.1.13
 jquery 1.9.0

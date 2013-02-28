@@ -18,11 +18,14 @@ class Base extends MY_Controller {
 		$asset2path = array(
 				// css list {{{
 				'colorbox.css' => '/sta/css/colorbox.css',
+				'bootstrap.min.css' => '/sta/css/bootstrap.min.css',
+				'bootstrap-responsive.css' => '/sta/css/bootstrap-responsive.min.css',
 				//}}}
 				// js list {{{
 				'jquery.js' => '/sta/js/jquery.min.js',
 				'jquery.colorbox.js' => '/sta/js/jquery.colorbox.min.js',
 				'jquery.json.js' => '/sta/js/jquery.json.min.js',
+				'bootstrap.js' => '/sta/js/bootstrap.min.js',
 				// }}}
 				);
 		$common_css = array(
