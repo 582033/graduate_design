@@ -9,6 +9,7 @@ class home extends base{
 	public function index($category_id=null) {	//{{{
 		$data = array(
 				'topic' => $this->getTopicList($category_id),
+				'category_id' => $category_id,
 				);
 		$this->smarty->view('content_index.tpl', $data);
 	}	//}}}
