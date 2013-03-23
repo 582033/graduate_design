@@ -1,4 +1,4 @@
-<div style="float:left;width:200px;margin:10px 20px;">
+<div class="sideNav">
 <ul class="nav nav-pills nav-stacked" style="width:150px;">
 	<li {if !$category_id || $category_id == ''}class='active'{/if}><a href="/">ALL</a></li>
 	{foreach $category as $cate}

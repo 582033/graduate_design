@@ -1,5 +1,5 @@
 {capture name="wrapper"}
-<div style="float:left;width:1000px;margin:10px 20px;">
+<div class="contents">
 	<ul class="thumbnails">
 		{foreach $topic as $t}
 		<li class="span3">

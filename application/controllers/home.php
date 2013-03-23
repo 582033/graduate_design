@@ -14,9 +14,8 @@ class home extends base{
 		$this->smarty->view('content_index.tpl', $data);
 	}	//}}}
 	public function topic($topic_id){	//{{{
-		$data = array(
-				'topic' => $this->getTopic($topic_id),
-				);
+		$data = array('topic' => $this->getTopic($topic_id));
+		$data['category_id'] = $data['topic']['category_id'];
 		$this->smarty->view('content_topic.tpl', $data);
 	}	//}}}
 	private function getTopicList($category_id=null){	//获取专辑列表{{{
