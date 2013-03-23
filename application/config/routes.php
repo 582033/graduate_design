@@ -42,6 +42,9 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 
 $route['admin'] = "admin/admin/index";
+$route['cate/(:num)'] = "home/index/$1";
+$route['topic/(:num)'] = "home/topic/$1";
+
 
 
 /* End of file routes.php */

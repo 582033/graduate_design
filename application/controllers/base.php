@@ -4,6 +4,7 @@ class Base extends MY_Controller {
 	public function __construct(){	//	{{{
 		parent::__construct();
 		$this->site_name = '千夜 - ';
+		$Cate_Model = $this->load->model('Cate_Model');
 	}	//	}}}
 	private function _get_pageinfo($pageid, $params=NULL) {	//	{{{
 		return $page_info = array(
@@ -92,4 +93,7 @@ class Base extends MY_Controller {
 		$keyword = isset($keywords[$pageid]) ? $keywords[$pageid] : '';
 		return $keyword;
 	}	//	}}}
+	public function categoryOutput(){	//{{{
+		$this->smarty->assign('category', $this->Cate_Model->getCategory());
+	}	//}}}
 }

@@ -38,6 +38,9 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /* Admin database */
 define('USER_TABLE', 							'user');
+define('CATEGORY_TABLE', 						'category');
+define('TOPICS_TABLE', 							'topics');
+define('PICTURES_TABLE', 						'pictures');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
