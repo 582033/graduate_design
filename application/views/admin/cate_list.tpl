@@ -4,12 +4,14 @@
 		<tr>
 			<td>类别ID</td>
 			<td>类别名称</td>
+			<td>状态</td>
 			<td>操作</td>
 		{foreach $category as $c}
 		<tr>
 			<td>{$c.category_id}</td>
 			<td>{$c.category_name}</td>
-			<td><input class='btn btn-primary' type='button' value='修改' onclick='open_url({$c.category_id})'></td>
+			<td>{if $c.status == '0'}禁用{else}启用{/if}</td>
+			<td><input class='btn btn-{if $c.status == '0'}danger{else}primary{/if}' type='button' value='修改' onclick='open_url({$c.category_id})'></td>
 		</tr>
 		{/foreach}
 	</table>

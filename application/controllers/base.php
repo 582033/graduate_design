@@ -94,6 +94,6 @@ class Base extends MY_Controller {
 		return $keyword;
 	}	//	}}}
 	public function categoryOutput(){	//{{{
-		$this->smarty->assign('category', $this->Cate_Model->getCategory());
+		$this->smarty->assign('category', $this->Cate_Model->getCategory_Home());
 	}	//}}}
 }

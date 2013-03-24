@@ -17,7 +17,7 @@ class Admin extends Login{
 				$Uri_Port = 'list';
 			}
 			else {
-				$data['category_id'] = $category_id;
+				$data = $CM->getCategory($category_id);
 				$Uri_Port = 'edit';
 			}
 			$this->smarty->view('admin/cate_'.$Uri_Port.'.tpl', $data);
