@@ -22,20 +22,20 @@ class Login extends User {
 			if (isset($_SESSION['username'])) {
 				$data['username'] = $_SESSION['username'];
 			}
-			$this->smarty->view('admin/login/login.tpl', $data);
+			$this->smarty->view('admin/login.tpl', $data);
 		}
 	}	//}}}
 
-	public function logout(){	//{{{
+	public function logout(){	//退出登陆{{{
 		$this->user_action->user_logout($this->redirect_url);
 	}	//}}}
 
-	public function check_login(){	//{{{
+	public function check_login(){	//用户权限认证{{{
 		$username = $this->user_action->check_session($this->redirect_url);
 		$this->smarty->assign('username', $username);
 	}	//}}}
 
-	private function user_root_login($username){	//{{{
-		$this->user_action->user_root($username, '/login/');
+	private function user_root_login($username){	//使用root用户登陆{{{
+		$this->user_action->user_root($username, '/admin/login');
 	}	//}}}
 }

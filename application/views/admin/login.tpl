@@ -15,11 +15,10 @@
 		<h3>用户：<font color='red'>{$username}</font>已登录！</h3>
 		<ul>
 			
-			<li><a href='/partner/'>合作商管理</a></li>
-			<li><a href='/xianzong/'>仙踪合作应用管理</a></li>
-			<li><a href='/order/waitting'>订单管理</a></li>
+			<li><a href='/admin/category'>类别管理</a></li>
+			<li><a href='/admin/topic'>专辑管理</a></li>
 		</ul>
-		<input class="btn" style="float:right" type="button" onclick="window.location='/login/logout'" value="退出登录">
+		<input class="btn" style="float:right" type="button" onclick="window.location='/admin/logout'" value="退出登录">
 	{else}
 		<form name="form" method="post" action="/admin/login/index" enctype="multipart/form-data">
 		<table align="center">
