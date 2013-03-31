@@ -5,6 +5,7 @@ class Admin extends Login{
 		parent::__construct();
 		$this->check_login();//要增加权限认证,继承Login,并在构造函数中加入此方法即可
 		$this->load->model('Cate_Model');
+		$this->load->model('Topic_Model');
 	}	//}}}
 	public function index() {	//登陆后的主页面{{{
 		$this->smarty->view('admin/index.tpl');
@@ -33,6 +34,14 @@ class Admin extends Login{
 		}
 	}	//}}}
 	public function topic() {	//专辑管理{{{
-		$this->smarty->view('admin/topic.tpl');
+		$TM = new Topic_Model();
+		if($_SERVER['REQUEST_METHOD'] == 'GET'){
+			$data = array(
+					'topics' => $TM->getTopicList(),
+					);
+			$this->smarty->view('admin/topic.tpl', $data);
+		}
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+		}
 	}	//}}}
 }
