@@ -5,7 +5,7 @@ class Topic_Model extends Base_Model {
 		parent::__construct();
 	}	//}}}
 	public function getTopic($topic_id){	//获取图片专辑{{{
-		$pics_sql = "select img_url from ".PICTURES_TABLE." where topic_id = {$topic_id}";
+		$pics_sql = "select img_url,status from ".PICTURES_TABLE." where topic_id = {$topic_id}";
 		$pics = $this->db->query($pics_sql)->result_array();
 		$sql = "select * from ".TOPICS_TABLE." where topic_id = $topic_id";
 		$topic = $this->db->query($sql)->row_array();

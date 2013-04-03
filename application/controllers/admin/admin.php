@@ -44,4 +44,14 @@ class Admin extends Login{
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		}
 	}	//}}}
+	public function picture($topic_id){	//专辑图片管理{{{
+		$TM = new Topic_Model();
+		$topics = $TM->getTopic($topic_id);
+		$data = array(
+				'pictures' => $topics['pictures'],
+				);
+		$this->smarty->view('admin/topic_list.tpl', $data);
+	}	//}}}
+	public function setcover($picture_id, $topic_id){	//设为封面{{{
+	}	//}}}
 }
