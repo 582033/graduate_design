@@ -14,9 +14,15 @@ class thumb extends MY_Controller{
 		catch (Exception $e){
 			print $e->getMessage();
 		}
-		if($this->input->get('size')) {
-			list($width, $height) = explode('x', $this->input->get('size'));
-			$thumb->resize($width, $height);
+		$size = $this->input->get('size');
+		if(!empty($size)) {
+			if(strpos($size, 'x')){
+				list($width, $height) = explode('x', $this->input->get('size'));
+				$thumb->resize($width, $height);
+			}
+			else{
+				$thumb->resize($size);
+			}
 		}
 		else {
 			$thumb->resizePercent(100);
