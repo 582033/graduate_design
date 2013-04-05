@@ -6,8 +6,8 @@
 	<label>
 		<span>类别状态：</span>
 		<select name="status">
-			<option value='1' {if $status == '1'}checked="checked"{/if}>启用</option>
-			<option value='0' {if $status == '0'}checked="checked"{/if}>禁用</option>
+			<option value='1' {if $status == '1'}selected{/if}>启用</option>
+			<option value='0' {if $status == '0'}selected{/if}>禁用</option>
 		</select>
 	</label>
 	<label>

@@ -27,10 +27,10 @@ class Topic_Model extends Base_Model {
 		$result = $this->db->query($sql)->row_array();
 		return $result['cover'];
 	}	//}}}
-	public function setCover($topic_id, $picture_id){	//设置封面{{{
-		if(empty($topic_id) || empty($picture_id)) return false;
+	public function alterTopic($topic_id, $params){	//修改专辑信息{{{
+		if(empty($topic_id) || !is_array($params)) return false;
 		$this->db
 			->where(array('topic_id' => $topic_id))
-			->update(TOPICS_TABLE, array('cover' => $picture_id));
+			->update(TOPICS_TABLE, $params);
 	}	//}}}
 }

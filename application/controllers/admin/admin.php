@@ -33,15 +33,23 @@ class Admin extends Login{
 			redirect('/admin/category');
 		}
 	}	//}}}
-	public function topic() {	//专辑管理{{{
+	public function topic($topic_id=null) {	//专辑管理{{{
 		$TM = new Topic_Model();
 		if($_SERVER['REQUEST_METHOD'] == 'GET'){
-			$data = array(
-					'topics' => $TM->getTopicList(),
-					);
-			$this->smarty->view('admin/topic.tpl', $data);
+			if(!$topic_id){
+				$data = array(
+						'topics' => $TM->getTopicList(),
+						);
+				$this->smarty->view('admin/topic.tpl', $data);
+			}
+			else {
+				$this->topic_edit_view($topic_id);
+			}
 		}
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			if($topic_id){
+				$this->topic_edit_view($topic_id);
+			}
 		}
 	}	//}}}
 	public function picture($topic_id){	//专辑图片管理{{{
@@ -56,7 +64,29 @@ class Admin extends Login{
 	}	//}}}
 	public function setcover($topic_id, $picture_id){	//设为封面{{{
 		$TM = new Topic_Model();
-		$TM->setCover($topic_id, $picture_id);
+		$TM->alterTopic($topic_id, array('cover' => $picture_id));
 		redirect("/admin/topic/{$topic_id}");
+	}	//}}}
+	private function topic_edit_view($topic_id){	//{{{
+		$TM = new Topic_Model();
+		$CM = new Cate_Model();
+		if($_SERVER['REQUEST_METHOD'] == 'GET'){
+			$data = array(
+					'topic' => $TM->getTopic($topic_id),
+					'category' => $CM->getCategory(),
+					);
+			$this->smarty->view('admin/topic_edit.tpl', $data);
+		}
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			if (!$topic_id) return false;
+			$params = array(
+					'name' => $this->input->post('name'),
+					'category_id' => $this->input->post('category_id'),
+					'status' => $this->input->post('status'),
+					'intro' => $this->input->post('intro'),
+					);
+			$TM->alterTopic($topic_id, $params);
+			redirect('/admin/topic');
+		}
 	}	//}}}
 }
