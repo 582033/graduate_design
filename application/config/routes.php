@@ -46,6 +46,7 @@ $route['admin/category'] = "admin/admin/category";
 $route['admin/category/(:num)'] = "admin/admin/category/$1";
 $route['admin/topic'] = "admin/admin/topic";
 $route['admin/topic/(:num)'] = "admin/admin/picture/$1";
+$route['admin/setcover/(:num)/(:num)'] = "admin/admin/setcover/$1/$2";
 $route['admin/logout'] = "admin/login/logout";
 $route['cate/(:num)'] = "home/index/$1";
 $route['topic/(:num)'] = "home/topic/$1";

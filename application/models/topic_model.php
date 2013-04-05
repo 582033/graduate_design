@@ -5,7 +5,7 @@ class Topic_Model extends Base_Model {
 		parent::__construct();
 	}	//}}}
 	public function getTopic($topic_id){	//获取图片专辑{{{
-		$pics_sql = "select img_url,status from ".PICTURES_TABLE." where topic_id = {$topic_id}";
+		$pics_sql = "select id,img_url,status from ".PICTURES_TABLE." where topic_id = {$topic_id}";
 		$pics = $this->db->query($pics_sql)->result_array();
 		$sql = "select * from ".TOPICS_TABLE." where topic_id = $topic_id";
 		$topic = $this->db->query($sql)->row_array();
@@ -21,5 +21,16 @@ class Topic_Model extends Base_Model {
 		}
 		$sql = "select T.*,P.img_url from ".TOPICS_TABLE." as T join ".PICTURES_TABLE." as P on ({$category_id}T.cover=P.id)";
 		return $this->db->query($sql)->result_array();
+	}	//}}}
+	public function getCoverID($topic_id){	//获取封面ID{{{
+		$sql = "select cover from ".TOPICS_TABLE." where topic_id = {$topic_id}";
+		$result = $this->db->query($sql)->row_array();
+		return $result['cover'];
+	}	//}}}
+	public function setCover($topic_id, $picture_id){	//设置封面{{{
+		if(empty($topic_id) || empty($picture_id)) return false;
+		$this->db
+			->where(array('topic_id' => $topic_id))
+			->update(TOPICS_TABLE, array('cover' => $picture_id));
 	}	//}}}
 }

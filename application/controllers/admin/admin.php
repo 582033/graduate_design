@@ -49,9 +49,14 @@ class Admin extends Login{
 		$topics = $TM->getTopic($topic_id);
 		$data = array(
 				'pictures' => $topics['pictures'],
+				'topic_id' => $topic_id,
+				'cover_id' => $TM->getCoverID($topic_id),
 				);
 		$this->smarty->view('admin/topic_list.tpl', $data);
 	}	//}}}
-	public function setcover($picture_id, $topic_id){	//设为封面{{{
+	public function setcover($topic_id, $picture_id){	//设为封面{{{
+		$TM = new Topic_Model();
+		$TM->setCover($topic_id, $picture_id);
+		redirect("/admin/topic/{$topic_id}");
 	}	//}}}
 }
