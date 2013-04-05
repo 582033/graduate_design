@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/sta/css/colorbox.css" />
 <script src="/sta/js/jquery.min.js"></script>
 <script src="/sta/js/jquery.json.min.js"></script>
-<!--<script src="/sta/js/jquery.masonry.min.js"></script>-->
+<script src="/sta/js/jquery.masonry.min.js"></script>
 <script src="/sta/js/jquery.colorbox.min.js"></script>
 <script src="/sta/js/bootstrap.min.js"></script>
 <style>
@@ -34,10 +34,10 @@ window.addEvent('domready', function(){
 	});
 }); 
 jQuery(document).ready(function() {
-	var $container = jQuery('.contents');
+	var $container = jQuery('.thumbnails');
 	$container.imagesLoaded( function(){
 	  $container.masonry({
-		itemSelector : '.box'
+		itemSelector : '.span3'
 	  });
 	})
     var sideNav = jQuery('.nav').parent(),
