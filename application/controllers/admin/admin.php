@@ -1,5 +1,6 @@
 <?php
 require_once APPPATH.'controllers/admin/login.php';
+require_once APPPATH.'controllers/uploads.php';
 class Admin extends Login{
 	public function __construct(){	//{{{
 		parent::__construct();
@@ -108,6 +109,47 @@ class Admin extends Login{
 				$TM->addTopic($topic_id, $params);
 			}
 			redirect('/admin/topic');
+		}
+	}	//}}}
+	public function pic_edit($pic_id=null){	//{{{
+		if($_SERVER['REQUEST_METHOD'] == 'GET'){
+			$TM = new Topic_Model();
+			$data = array(
+					'pic' => $TM->getPicture($pic_id),
+					'picture_id' => $pic_id,
+					'topic_id' => $this->input->get('tid'),
+					);
+			$this->smarty->view('admin/pic_edit.tpl', $data);
+		}
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			$TM = new Topic_Model();
+			$type = $this->input->post('img_type');
+			$data = array(
+				'topic_id' => $this->input->post('topic_id'),
+				'status' => $this->input->post('status'),
+					);
+			switch($type){
+				case 'link':	//输入URL{{{
+					$data['img_url'] = $this->input->post('img_url');
+					break;	//}}}
+				case 'upload':	//上传图片{{{
+					$Upload = new uploads($_FILES['upload_pic'], $this->config->item('img_file'));
+					$imgs = $Upload->get_file_infos();
+					foreach($imgs as $img){
+						$data['img_url'] = $this->config->item('img_host').$img['name'];
+					}
+					break;	//}}}
+				default:
+					return false;
+					break;
+			}
+			if(!empty($pic_id)){	//修改
+				$TM->alterPicture($pic_id, $data);
+			}
+			else{	//新增
+				$TM->addPicture($data);
+			}
+			redirect('/admin/topic/'.$data['topic_id']);
 		}
 	}	//}}}
 }

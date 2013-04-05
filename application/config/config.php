@@ -358,5 +358,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+$config['img_host'] = 'http://sj.com/uploads/';
+$config['img_file'] = '/tmp/picture_management/';
 /* End of file config.php */
 /* Location: ./application/config/config.php */

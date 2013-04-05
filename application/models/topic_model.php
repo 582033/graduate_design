@@ -38,4 +38,21 @@ class Topic_Model extends Base_Model {
 		$this->db
 			->insert(TOPICS_TABLE, $params);
 	}	//}}}
+	public function getPicture($pic_id){	//获取单张图片信息	{{{
+		$sql = "select id,img_url,status from ".PICTURES_TABLE." where id = '{$pic_id}'";
+		$result = $this->db->query($sql)->row_array();
+		return $result;
+	}	//}}}
+	public function addPicture($params){	//新增图片{{{
+		if(!is_array($params)) return false;
+		$this->db
+			->insert(PICTURES_TABLE, $params);
+	}	//}}}
+	public function alterPicture($pic_id, $params){	//修改专辑信息{{{
+		if(empty($pic_id) || !is_array($params)) return false;
+		$this->db
+			->where(array('id' => $pic_id))
+			->update(PICTURES_TABLE, $params);
+	}	//}}}
+
 }
