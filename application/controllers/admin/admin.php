@@ -40,6 +40,13 @@ class Admin extends Login{
 	public function add_category(){	//{{{
 		$this->smarty->view('admin/cate_edit.tpl');
 	}	//}}}
+	public function add_topic(){	//{{{
+		$CM = new Cate_Model();
+		$data = array(
+				'category' => $CM->getCategory(),
+				);
+		$this->smarty->view('admin/topic_edit.tpl', $data);
+	}	//}}}
 	public function topic($topic_id=null) {	//专辑管理{{{
 		$TM = new Topic_Model();
 		if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -47,14 +54,17 @@ class Admin extends Login{
 				$data = array(
 						'topics' => $TM->getTopicList(),
 						);
-				$this->smarty->view('admin/topic.tpl', $data);
+				$this->smarty->view('admin/topic_list.tpl', $data);
 			}
 			else {
 				$this->topic_edit_view($topic_id);
 			}
 		}
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			if($topic_id){
+			if(!$topic_id){
+				$this->topic_edit_view();
+			}
+			else{
 				$this->topic_edit_view($topic_id);
 			}
 		}
@@ -67,32 +77,36 @@ class Admin extends Login{
 				'topic_id' => $topic_id,
 				'cover_id' => $TM->getCoverID($topic_id),
 				);
-		$this->smarty->view('admin/topic_list.tpl', $data);
+		$this->smarty->view('admin/pic_list.tpl', $data);
 	}	//}}}
 	public function setcover($topic_id, $picture_id){	//设为封面{{{
 		$TM = new Topic_Model();
 		$TM->alterTopic($topic_id, array('cover' => $picture_id));
 		redirect("/admin/topic/{$topic_id}");
 	}	//}}}
-	private function topic_edit_view($topic_id){	//{{{
+	private function topic_edit_view($topic_id=null){	//{{{
 		$TM = new Topic_Model();
 		$CM = new Cate_Model();
 		if($_SERVER['REQUEST_METHOD'] == 'GET'){
 			$data = array(
-					'topic' => $TM->getTopic($topic_id),
 					'category' => $CM->getCategory(),
+					'topic' => $TM->getTopic($topic_id),
 					);
 			$this->smarty->view('admin/topic_edit.tpl', $data);
 		}
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			if (!$topic_id) return false;
 			$params = array(
 					'name' => $this->input->post('name'),
 					'category_id' => $this->input->post('category_id'),
 					'status' => $this->input->post('status'),
 					'intro' => $this->input->post('intro'),
 					);
-			$TM->alterTopic($topic_id, $params);
+			if ($topic_id){
+				$TM->alterTopic($topic_id, $params);
+			}
+			else {
+				$TM->addTopic($topic_id, $params);
+			}
 			redirect('/admin/topic');
 		}
 	}	//}}}

@@ -33,4 +33,9 @@ class Topic_Model extends Base_Model {
 			->where(array('topic_id' => $topic_id))
 			->update(TOPICS_TABLE, $params);
 	}	//}}}
+	public function addTopic($params){	//新增专辑信息{{{
+		if(!is_array($params)) return false;
+		$this->db
+			->insert(TOPICS_TABLE, $params);
+	}	//}}}
 }

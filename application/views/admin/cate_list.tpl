@@ -28,7 +28,8 @@ function open_url(id, type){
 		scrolling: false,
 		href: url
 	});
-	//console.log("url:/admin/category/"+id);
+	//console.log(url);
+	
 }
 </script>
 {/capture}
