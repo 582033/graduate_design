@@ -29,4 +29,8 @@ class Cate_Model extends Base_Model {
 				->update(CATEGORY_TABLE, $params);	
 		}
 	}	//}}}
+	public function addCategory($params){	//新增分类{{{
+		$this->db
+			->insert(CATEGORY_TABLE, $params);
+	}	//}}}
 }

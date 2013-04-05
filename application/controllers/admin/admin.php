@@ -24,14 +24,21 @@ class Admin extends Login{
 			$this->smarty->view('admin/cate_'.$Uri_Port.'.tpl', $data);
 		}
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			if (!$category_id) return false;
 			$params = array(
 					'category_name' => $this->input->post('category_name'),
 					'status' => $this->input->post('status'),
 					);
-			$CM->alterCategory($category_id, $params);
+			if (!$category_id){
+				$CM->addCategory($params);
+			}
+			else {
+				$CM->alterCategory($category_id, $params);
+			}
 			redirect('/admin/category');
 		}
+	}	//}}}
+	public function add_category(){	//{{{
+		$this->smarty->view('admin/cate_edit.tpl');
 	}	//}}}
 	public function topic($topic_id=null) {	//专辑管理{{{
 		$TM = new Topic_Model();
