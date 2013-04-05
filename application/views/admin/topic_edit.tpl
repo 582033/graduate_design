@@ -1,5 +1,5 @@
 <div class='well' style='width:600px;margin:10px'>
-	<form action='/admin/topic/{$topic.topic_id}/edit' method='post'>
+	<form action='/admin/topic/{if $topic.topic_id}{$topic.topic_id}/edit{else}add{/if}' method='post'>
 	<label>
 		<span>专辑名称：</span><input name="name" type='text' value="{$topic.name}" required/>
 	</label>

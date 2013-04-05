@@ -42,11 +42,16 @@ class Admin extends Login{
 		$this->smarty->view('admin/cate_edit.tpl');
 	}	//}}}
 	public function add_topic(){	//{{{
-		$CM = new Cate_Model();
-		$data = array(
-				'category' => $CM->getCategory(),
-				);
-		$this->smarty->view('admin/topic_edit.tpl', $data);
+		if($_SERVER['REQUEST_METHOD'] == 'GET'){
+			$CM = new Cate_Model();
+			$data = array(
+					'category' => $CM->getCategory(),
+					);
+			$this->smarty->view('admin/topic_edit.tpl', $data);
+		}
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			$this->topic_edit_view();
+		}
 	}	//}}}
 	public function topic($topic_id=null) {	//专辑管理{{{
 		$TM = new Topic_Model();
@@ -62,10 +67,7 @@ class Admin extends Login{
 			}
 		}
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			if(!$topic_id){
-				$this->topic_edit_view();
-			}
-			else{
+			if($topic_id){
 				$this->topic_edit_view($topic_id);
 			}
 		}
@@ -106,7 +108,7 @@ class Admin extends Login{
 				$TM->alterTopic($topic_id, $params);
 			}
 			else {
-				$TM->addTopic($topic_id, $params);
+				$TM->addTopic($params);
 			}
 			redirect('/admin/topic');
 		}
@@ -131,23 +133,26 @@ class Admin extends Login{
 			switch($type){
 				case 'link':	//输入URL{{{
 					$data['img_url'] = $this->input->post('img_url');
+					if(!empty($pic_id)){	//修改
+						$TM->alterPicture($pic_id, $data);
+					}
+					else{	//新增
+						$TM->addPicture($data);
+					}
 					break;	//}}}
 				case 'upload':	//上传图片{{{
 					$Upload = new uploads($_FILES['upload_pic'], $this->config->item('img_file'));
 					$imgs = $Upload->get_file_infos();
 					foreach($imgs as $img){
 						$data['img_url'] = $this->config->item('img_host').$img['name'];
+						if(!empty($pic_id)){	//修改
+							$TM->alterPicture($pic_id, $data);
+						}
+						else{	//新增
+							$TM->addPicture($data);
+						}
 					}
 					break;	//}}}
-				default:
-					return false;
-					break;
-			}
-			if(!empty($pic_id)){	//修改
-				$TM->alterPicture($pic_id, $data);
-			}
-			else{	//新增
-				$TM->addPicture($data);
 			}
 			redirect('/admin/topic/'.$data['topic_id']);
 		}

@@ -67,7 +67,7 @@ class Uploads {
 		for($i=0;$i<$this->count;$i++){
 			$type = explode('.', $files['name'][$i]);
 			$unique_id = md5(time() . mt_rand(1,1000000));
-			$unique_name[$i] = $unique_id.'.'.$type[1];
+			$unique_name[$i] = strtolower($unique_id.'.'.$type[1]);
 		}
 		return $unique_name;
 	}	//	}}}

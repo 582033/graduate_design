@@ -15,7 +15,7 @@
 		<tr>
 			<td>{$topic.topic_id}</td>
 			<td>{$topic.name}</td>
-			<td><img src='/thumb?url={$topic.img_url}&size=100x100' width='100px' height='100px'></td>
+			<td>{if $topic.img_url}<img src='/thumb?url={$topic.img_url}&size=100x100' width='100px' height='100px'>{else}暂无封面{/if}</td>
 			<td>{$topic.created_at}</td>
 			<td>{if $topic.status == '1'}启用{else}禁用{/if}</td>
 			<td><input class='btn btn-{if $topic.status == '0'}danger{else}primary{/if}' type='button' value='管理' onclick='pic_management({$topic.topic_id})'></td>
